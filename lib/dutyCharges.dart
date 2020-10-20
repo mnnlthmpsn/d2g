@@ -243,15 +243,9 @@ class DutyCharges extends State<duty_charges> {
                       ],
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Center(
-                    child: Text(
-                      'Logo Here',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: 'Nexa',
-                      ),
+                    child: header_small(),
                     ),
                   ),
-                )
               ],
             ),
           ),

@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:Duty2Go/car.dart';
 import 'package:Duty2Go/utils/database.dart';
 import 'package:flutter/material.dart';
 import 'api.dart';
+import 'car_db.dart';
 import 'custom_widget.dart';
 import 'searchResults.dart';
 import 'vehicle.dart';
@@ -293,23 +295,23 @@ class _vinsearch extends State<Vinsearch> {
 
                             String date = getdate().toString();
 
-                            var newVin = Vehicle(date: date,
+                            Car newVin = Car(date: date,
                                 vin: _vin,
                                 make: make,
                                 model: model,
                                 trim: trim,
                                 year: year,
-                                bodyType: body_type,
-                                driveType: drive_type,
-                                countryOfManufacture: country_of_manufacture,
+                                body_type: body_type,
+                                drive_type: drive_type,
+                                country_of_manufacture: country_of_manufacture,
                                 plant: plant,
                                 msrp: msrp,
                                 cylinders: cylinders,
                                 displacement: displacement,
-                                fuelType: fuel_type,
+                                fuel_type: fuel_type,
                                 aspiration: aspiration,
                                 transmission: transmission);
-                            DBProvider.db.newVin(newVin);
+                            DBProvider.db.newCar(newVin);
 
 
 

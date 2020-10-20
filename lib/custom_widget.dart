@@ -134,3 +134,13 @@ class CustomButton extends StatelessWidget {
   }
 }
 
+class header_small extends StatelessWidget {
+  @override
+  Widget build(BuildContext context){
+    return Container(child: Image.asset('assets/header.png'),
+      //width: MediaQuery.of(context).size.width*0.15,
+     // height: MediaQuery.of(context).size.height*0.15,
+    );
+  }
+}
+

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-
+import 'dart:convert';
 import 'api.dart';
+import 'car_db.dart';
 import 'custom_widget.dart';
 import 'forgotPassword.dart';
 import 'register.dart' as register;
 import 'vin_search.dart';
 import 'home.dart';
+import 'user.dart';
+import 'package:Duty2Go/utils/database.dart';
 
 
 class Login extends StatefulWidget {
@@ -17,20 +20,63 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
 
   // ignore: top_level_instance_getter
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
   String message = '';
-
-  @override
-  void start() {
-    emailController.text = readEmail();
-  }
+  String email = '';
+  String url = '';
+  String state = '';
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    pullData();
+    super.initState();
+  }
+
+  getState() async{
+
+    var _returned = await getstate_();
+    String _status;
+    String _string;
+    String _msg;
+
+    if(_returned != null){
+      _status = _returned["status"];
+      _string = _returned["string"];
+      _msg = _returned["msg"];
+    }else{
+      //do what no internet does
+    }
+
+    List block = [_status, _string, _msg];
+    return block;
+  }
+
+
+  pullData() async {
+    var _vinData = await DBProvider.db.getUser();
+    if(_vinData != 0) {
+      email = _vinData["email"];
+      url = _vinData["url"];
+      state = _vinData["state"];
+      print(email);
+      setState(() {
+        emailController.text = email.toString();
+      });
+
+    }else {
+      email = '';
+      url = 'https://duty2go.crustsolutions.com';
+      state = 'Active';
+    }
   }
 
   @override
@@ -135,25 +181,39 @@ class _LoginState extends State<Login> {
                       CustomButton1(
                         onBtnPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            var email = emailController.text;
+                            var _email = emailController.text;
                             var password = passwordController.text;
                             setState(() {
                               message = 'Please Wait...';
                             });
 
-                            var rsp = await loginUser("padmorey@gmaild.com", "123456");
+                            var rsp = await loginUser(_email, password);
                             print(rsp);
 
                             bool emailValid = RegExp(
                                     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(email);
+                                .hasMatch(_email);
                             if (emailValid) {
                               if (rsp != null) {
                                 if (rsp == '0') {
-                                  writeEmail(email);
+
+                                  List Listreturned = await getState();
+
+                                  var currentUser = User(email: _email,
+                                      url: url,
+                                      state: state);
+                                  DBProvider.db.updateUser(currentUser);
+
+                                  var transfer = {
+                                    'email': _email,
+                                    'url': Listreturned.elementAt(1),
+                                    'state': Listreturned.elementAt(0)
+                                  };
+
+                                  String _transfer = jsonEncode(transfer);
                                   Navigator.pushReplacement(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return Home();
+                                    return Home(_transfer, null);
                                   }));
                                 } else {
                                   setState(

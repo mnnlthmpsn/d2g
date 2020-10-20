@@ -43,6 +43,57 @@ class _vindetails extends State<VinDetails> {
     String transmission = temp1["transmission"];
     String fuel_display = temp1["fuel_display"];
 
+    if(fuel_display == null){
+      fuel_display = fuel_type;
+    }
+    if (fuel_type == "B") {
+      fuel_display = "Bio Diesel";
+    } else if (fuel_type == "D") {
+      fuel_display = "Diesel";
+    } else if (fuel_type == "DH") {
+      fuel_display = "Diesel Hybrid";
+    } else if (fuel_type == "F") {
+      fuel_display = "Flex Fuel";
+    } else if (fuel_type == "G") {
+      fuel_display = "Gasoline/Petrol";
+    } else if (fuel_type == "H") {
+      fuel_display = "Hydrogen Fuel Cells";
+    } else if (fuel_type == "L") {
+      fuel_display = "Electric";
+    } else if (fuel_type == "N") {
+      fuel_display = "Natural Gas";
+    } else if (fuel_type == "P") {
+      fuel_display = "Propane";
+    } else if (fuel_type == "Biodiesel") {
+      fuel_display = "Biodiesel";
+    } else if (fuel_type == "Diesel") {
+      fuel_display = "Diesel";
+    } else if (fuel_type == "Diesel/Electric Hybrid") {
+      fuel_display = "Diesel/Electric Hybrid";
+    } else if (fuel_type == "Electric") {
+      fuel_display = "Electric";
+    } else if (fuel_type ==
+        "Electric with Gas Generator") {
+      fuel_display = "Electric with Gas Generator";
+    } else if (fuel_type == "Flex Fuel") {
+      fuel_display = "Flex Fuel";
+    } else if (fuel_type == "Gas/Electric Hybrid") {
+      fuel_display = "Gas/Electric Hybrid";
+    } else if (fuel_type == "Gasoline") {
+      fuel_display = "Gasoline";
+    } else if (fuel_type == "Hydrogen Fuel Cell") {
+      fuel_display = "Hydrogen Fuel Cell";
+    } else if (fuel_type == "Natural Gas") {
+      fuel_display = "Natural Gas";
+    } else if (fuel_type ==
+        "Plug-in Gas/Electric Hybrid") {
+      fuel_display = "Plug-in Gas/Electric Hybrid";
+    } else if (fuel_type == "Propane") {
+      fuel_display = "Propane";
+    }
+
+    print("ddddddddddddddddddddddddddddddddddddddd");
+    print(displacement);
     String formatted_msrp =
         NumberFormat.currency().format(double.tryParse(msrp));
 
@@ -80,13 +131,7 @@ class _vindetails extends State<VinDetails> {
                       ],
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Center(
-                    child: Text(
-                      'Logo Here',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: 'Nexa',
-                      ),
-                    ),
+                    child: header_small(),
                   ),
                 )
               ],

@@ -31,23 +31,6 @@ loginUser(String email, String password) async {
   return status;
 }
 
-readEmail() async {
-  String email_string = 'fred@yahoo.com';
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool CheckValue = prefs.containsKey('email');
-
-  if (CheckValue){
-      email_string = prefs.getString('email');
-     // return email_string;
-    }
-  return email_string;
-}
-
-writeEmail(String email) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString('email', email);
-}
-
 tempvin(String vin, String email) async {
 
   String _value;
@@ -108,17 +91,21 @@ checkSub(String email) async {
   var result = json.decode(response.body);
   print(result);
 
-  String _status = result["resp_code"];
-
-  String status = result["resp_code"];
+  var status = result["resp_code"];
   String description =  result["resp_desc"];
   String tokens = result["subscription_cap"];
 
-  if (_status == "555"){
+  print(status);
+
+  if (status == "555"){
     Block = {
       'status': status,
       'desc': description,
       'tokens': tokens
+    };
+  }else if(status == "666" || status == "667"  ){
+    Block = {
+      'status': "You need to subscribe to this service.."
     };
   }else {
     Block = {
@@ -126,6 +113,7 @@ checkSub(String email) async {
     };
   }
 
+  print(Block);
   return Block;
 }
 
@@ -148,6 +136,25 @@ getRate() async {
   }
 
   return rate;
+}
+
+getstate_() async {
+  var data;
+  var url = "https://crustsolutionsgh.com:8208/status";
+  var response =
+  await http.get(url, headers: {"Accept": "application/json"});
+
+  var result = json.decode(response.body);
+  print(result);
+
+  var _status = response.statusCode;
+
+  if(_status == 200){
+    data = result;
+  }else{
+    data = null;
+  }
+  return data;
 }
 
 signup(String load_passed) async {

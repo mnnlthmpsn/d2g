@@ -29,6 +29,10 @@ dependencies:
   sqflite: ^1.1.3
   path_provider: 1.6.18
   responsive_container:
+  webview_flutter:
+  flutter_spinkit: "^4.1.2"
+  barcode_scan: any
+
 
 
   # The following adds the Cupertino Icons font to your application.
