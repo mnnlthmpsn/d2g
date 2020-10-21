@@ -1,49 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Logo_white extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
-    return Container(child: Image.asset('assets/logo_white.png'),
-      width: MediaQuery.of(context).size.width*0.3,
-      height: MediaQuery.of(context).size.height*0.3,
+  Widget build(BuildContext context) {
+    return Container(
+      child: Image.asset('assets/logo_white.png'),
+      width: MediaQuery.of(context).size.width * 0.3,
+      height: MediaQuery.of(context).size.height * 0.3,
     );
   }
 }
+
 class Logo_white_small extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
-    return Container(child: Image.asset('assets/logo_white.png'),
-      width: MediaQuery.of(context).size.width*0.15,
-      height: MediaQuery.of(context).size.height*0.15,
+  Widget build(BuildContext context) {
+    return Container(
+      child: Image.asset('assets/logo_white.png'),
+      width: MediaQuery.of(context).size.width * 0.15,
+      height: MediaQuery.of(context).size.height * 0.15,
     );
   }
 }
 
 class Logo_red extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
-    return Container(child: Image.asset('assets/logo_red.png'),
-      width: MediaQuery.of(context).size.width*0.3,
-      height: MediaQuery.of(context).size.height*0.3,
+  Widget build(BuildContext context) {
+    return Container(
+      child: Image.asset('assets/logo_red.png'),
+      width: MediaQuery.of(context).size.width * 0.3,
+      height: MediaQuery.of(context).size.height * 0.3,
     );
   }
 }
 
 class Logo_red_small extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
-    return Container(child: Image.asset('assets/logo_red.png'),
-      width: MediaQuery.of(context).size.width*0.15,
-      height: MediaQuery.of(context).size.height*0.15,
+  Widget build(BuildContext context) {
+    return Container(
+      child: Image.asset('assets/logo_red.png'),
+      width: MediaQuery.of(context).size.width * 0.15,
+      height: MediaQuery.of(context).size.height * 0.15,
     );
   }
 }
 
 class CustomButton1 extends StatelessWidget {
-
   final String btnText;
+  final Widget loader;
+  final bool isLoading;
+
   final Function onBtnPressed;
-  CustomButton1({this.btnText, this.onBtnPressed});
+  CustomButton1({this.btnText, this.onBtnPressed, this.loader, this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +61,7 @@ class CustomButton1 extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            this.isLoading ? this.loader : Text(
               btnText,
               style: TextStyle(
                 fontFamily: 'Nexa',
@@ -71,7 +79,6 @@ class CustomButton1 extends StatelessWidget {
 }
 
 class CustomButton2 extends StatelessWidget {
-
   final String btnText;
   final Function onBtnPressed;
   CustomButton2({this.btnText, this.onBtnPressed});
@@ -102,7 +109,6 @@ class CustomButton2 extends StatelessWidget {
 }
 
 class CustomButton extends StatelessWidget {
-
   final String btnText;
   final Function onBtnPressed;
   CustomButton({this.btnText, this.onBtnPressed});
@@ -121,7 +127,7 @@ class CustomButton extends StatelessWidget {
                 fontFamily: 'Nexa',
                 color: Colors.red[600],
                 fontWeight: FontWeight.bold,
-        ),
+              ),
             ),
             SizedBox(width: 10),
             Icon(Icons.arrow_forward)
@@ -136,11 +142,11 @@ class CustomButton extends StatelessWidget {
 
 class header_small extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
-    return Container(child: Image.asset('assets/header.png'),
+  Widget build(BuildContext context) {
+    return Container(
+      child: Image.asset('assets/header.png'),
       //width: MediaQuery.of(context).size.width*0.15,
-     // height: MediaQuery.of(context).size.height*0.15,
+      // height: MediaQuery.of(context).size.height*0.15,
     );
   }
 }
-

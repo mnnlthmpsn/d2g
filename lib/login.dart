@@ -9,6 +9,8 @@ import 'vin_search.dart';
 import 'home.dart';
 import 'user.dart';
 import 'package:Duty2Go/utils/database.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 
 class Login extends StatefulWidget {
@@ -22,6 +24,7 @@ class _LoginState extends State<Login> {
   // ignore: top_level_instance_getter
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  bool isLoading = false;
   String message = '';
   String email = '';
   String url = '';
@@ -184,7 +187,7 @@ class _LoginState extends State<Login> {
                             var _email = emailController.text;
                             var password = passwordController.text;
                             setState(() {
-                              message = 'Please Wait...';
+                              isLoading = true;
                             });
 
                             var rsp = await loginUser(_email, password);
@@ -240,6 +243,11 @@ class _LoginState extends State<Login> {
                           }
                         },
                         btnText: 'Login',
+                        loader: SpinKitCircle(
+                          color: Colors.red[600],
+                          size: 20.0,
+                        ),
+                        isLoading: isLoading,
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 0),

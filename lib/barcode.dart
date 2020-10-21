@@ -1,5 +1,7 @@
 
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:provider/provider.dart';
+import 'package:Duty2Go/barcodeProvider.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +14,7 @@ class Barcode extends StatefulWidget {
 }
 
 class _barcodeapp extends State<Barcode> {
-  String barcode = "";
+  String barcodeMessage = '';
   String result = null;
 
   @override
@@ -59,20 +61,18 @@ class _barcodeapp extends State<Barcode> {
     try {
       String barcode = await BarcodeScanner.scan().toString();
       result = barcode;
-      setState(() => this.barcode = barcode);
+      Provider.of<BarcodeModel>(context, listen: false)
+        .updateBarcode(result);
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.cameraAccessDenied) {
-        setState(() {
-          this.barcode = 'No camera permission!';
-        });
+        setState(() => this.barcodeMessage = 'No Camera Permission');
       } else {
-        setState(() => this.barcode = 'Unknown error: $e');
+        setState(() => this.barcodeMessage = 'Unknown error: $e');
       }
     } on FormatException {
-      setState(() => this.barcode =
-      'Nothing captured.');
+      setState(() => this.barcodeMessage = 'Nothing Captured');
     } catch (e) {
-      setState(() => this.barcode = 'Unknown error: $e');
+      setState(() => this.barcodeMessage = 'Unknown error: $e');
     }
     return result;
   }
