@@ -47,11 +47,10 @@ class Logo_red_small extends StatelessWidget {
 
 class CustomButton1 extends StatelessWidget {
   final String btnText;
-  final Widget loader;
   final bool isLoading;
 
   final Function onBtnPressed;
-  CustomButton1({this.btnText, this.onBtnPressed, this.loader, this.isLoading});
+  CustomButton1({this.btnText, this.onBtnPressed, this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,10 @@ class CustomButton1 extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            this.isLoading ? this.loader : Text(
+            this.isLoading ? SpinKitCircle(
+              color: Colors.red[600],
+              size: 20.0,
+            ) : Text(
               btnText,
               style: TextStyle(
                 fontFamily: 'Nexa',
@@ -79,9 +81,10 @@ class CustomButton1 extends StatelessWidget {
 }
 
 class CustomButton2 extends StatelessWidget {
+  final bool isLoading;
   final String btnText;
   final Function onBtnPressed;
-  CustomButton2({this.btnText, this.onBtnPressed});
+  CustomButton2({this.btnText, this.isLoading, this.onBtnPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +94,10 @@ class CustomButton2 extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            this.isLoading ? SpinKitCircle(
+              color: Colors.white,
+              size: 20.0,
+            ) : Text(
               btnText,
               style: TextStyle(
                 fontFamily: 'Nexa',

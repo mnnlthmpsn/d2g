@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:Duty2Go/barcodeProvider.dart';
 import 'package:Duty2Go/utils/database.dart';
 import 'package:provider/provider.dart';
@@ -219,6 +219,9 @@ class _HomeState extends State<Home> {
                                     width: 210,
                                     child: FlatButton(
                                         onPressed: () async {
+                                          setState(() {
+                                            isLoading = true;
+                                          });
                                           if (sub_state == 1) {
                                             if (_formKey.currentState.validate()) {
                                               String vin =
@@ -278,10 +281,16 @@ class _HomeState extends State<Home> {
                                               duration: Duration(seconds: 3),
                                             ));
                                           }
+                                          setState(() {
+                                            isLoading = false;
+                                          });
                                         },
                                         color: Colors.red,
                                         textColor: Colors.white,
-                                        child: Text('Search')),
+                                        child: isLoading ? SpinKitCircle(
+                                          color: Colors.white,
+                                          size: 20.0,
+                                        ): Text('Search')),
                                   ),
                                 ],
                               ),
@@ -608,9 +617,6 @@ class _HomeState extends State<Home> {
                               color: Colors.black,
                               fontSize: 12)),
                     ),
-                    Divider(),
-                    Text('Text 1'),
-                    Divider(),
                   ],
                 ),
               ],

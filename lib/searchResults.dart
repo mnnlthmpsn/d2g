@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -18,6 +17,7 @@ class VinDetails extends StatefulWidget {
 
 class _vindetails extends State<VinDetails> {
   var temp;
+  bool isLoading = false;
 
   _vindetails(this.temp);
 
@@ -43,7 +43,7 @@ class _vindetails extends State<VinDetails> {
     String transmission = temp1["transmission"];
     String fuel_display = temp1["fuel_display"];
 
-    if(fuel_display == null){
+    if (fuel_display == null) {
       fuel_display = fuel_type;
     }
     if (fuel_type == "B") {
@@ -72,8 +72,7 @@ class _vindetails extends State<VinDetails> {
       fuel_display = "Diesel/Electric Hybrid";
     } else if (fuel_type == "Electric") {
       fuel_display = "Electric";
-    } else if (fuel_type ==
-        "Electric with Gas Generator") {
+    } else if (fuel_type == "Electric with Gas Generator") {
       fuel_display = "Electric with Gas Generator";
     } else if (fuel_type == "Flex Fuel") {
       fuel_display = "Flex Fuel";
@@ -85,8 +84,7 @@ class _vindetails extends State<VinDetails> {
       fuel_display = "Hydrogen Fuel Cell";
     } else if (fuel_type == "Natural Gas") {
       fuel_display = "Natural Gas";
-    } else if (fuel_type ==
-        "Plug-in Gas/Electric Hybrid") {
+    } else if (fuel_type == "Plug-in Gas/Electric Hybrid") {
       fuel_display = "Plug-in Gas/Electric Hybrid";
     } else if (fuel_type == "Propane") {
       fuel_display = "Propane";
@@ -414,6 +412,9 @@ class _vindetails extends State<VinDetails> {
             padding: const EdgeInsets.fromLTRB(40, 20, 40, 10),
             child: CustomButton2(
               onBtnPressed: () async {
+                setState(() {
+                  isLoading = true;
+                });
                 String year1 = "01/01/" + year;
 
                 var load = {
@@ -438,8 +439,12 @@ class _vindetails extends State<VinDetails> {
                     builder: (context) => duty_charges(temp),
                   ),
                 );
+                setState(() {
+                  isLoading = false;
+                });
               },
               btnText: "Calculate",
+              isLoading: isLoading,
             ),
           ),
         ],

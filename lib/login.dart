@@ -9,7 +9,6 @@ import 'vin_search.dart';
 import 'home.dart';
 import 'user.dart';
 import 'package:Duty2Go/utils/database.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 
 
@@ -243,10 +242,6 @@ class _LoginState extends State<Login> {
                           }
                         },
                         btnText: 'Login',
-                        loader: SpinKitCircle(
-                          color: Colors.red[600],
-                          size: 20.0,
-                        ),
                         isLoading: isLoading,
                       ),
                       Padding(

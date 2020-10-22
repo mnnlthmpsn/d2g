@@ -59,7 +59,9 @@ class _barcodeapp extends State<Barcode> {
   Future barcodeScanning() async {
     String result = "No Value";
     try {
-      String barcode = await BarcodeScanner.scan().toString();
+      String barcode = await BarcodeScanner.scan().then((value){
+        return value.format.toString();
+      });
       result = barcode;
       Provider.of<BarcodeModel>(context, listen: false)
         .updateBarcode(result);

@@ -20,6 +20,7 @@ class _register extends State<Register> {
   final passwordController = TextEditingController();
   final confirm_passwordController = TextEditingController();
   String message = '';
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -235,7 +236,7 @@ class _register extends State<Register> {
                         var confimrpassword =  confirm_passwordController.text;
 
                         setState(() {
-                          message = 'Please Wait...';
+                          isLoading = true;
                         });
 
                             if(password == confimrpassword){
@@ -265,6 +266,7 @@ class _register extends State<Register> {
 
                     },
                     btnText: 'Register',
+                    isLoading: isLoading,
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 10, 0, 0),

@@ -15,6 +15,8 @@ class duty_charges extends StatefulWidget {
 class DutyCharges extends State<duty_charges> {
   var temp;
 
+  bool isLoading = false;
+
   DutyCharges(this.temp);
   String formatted_msrp;
   String formatted_depreciated;
@@ -838,13 +840,19 @@ class DutyCharges extends State<duty_charges> {
             padding: const EdgeInsets.fromLTRB(40, 20, 40, 10),
             child: CustomButton2(
               onBtnPressed: () async {
+                setState(() {
+                  isLoading = true;
+                });
                var result_rate = await getRate();
                setState(() {
                   rate = result_rate;
                });
-
+              setState(() {
+                isLoading = false;
+              });
               },
               btnText: "GH Cedis",
+              isLoading: isLoading
             ),
           ),
         ],
